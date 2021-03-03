@@ -1,0 +1,17 @@
+.container {
+    width: 800px;
+    margin: 0 auto;
+    background-color: rgb(173, 233, 235);
+    border-radius: 25px;
+    border-style: dashed;
+    padding: 10px;
+}
+
+#startPrompt {
+    text-align: center;
+}
+
+h1 {
+    color: darkblue;
+}
+
