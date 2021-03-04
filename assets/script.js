@@ -1,52 +1,92 @@
 //To Do:
 // click the start button
-var startButton= document.querySelector("#start")
-var clock= document.querySelector("#timer")
-var time = 500;
+var startButton = document.querySelector("#start");
+var clock = document.querySelector("#timer");
+var startHeader = document.querySelector("#startPrompt");
+var answer = document.querySelector("#answers");
+var score=document.querySelector("#finalScore")
+var time = 200;
+var questionIndex = 0;
+
+
+questionContainer.style.display = "none";
+
+var questions = [
+  {
+    text: "How is Javascript abbreviated?",
+    answers: [" Jav", "JSC", "JS", "SJ"],
+    correctAnswer: "JS",
+  },
+  {
+    text: "Is Javascript a type of coffee?",
+    answers: [" True", "False"],
+    correctAnswer: "False",
+  },
+  {
+    text: "Was Javascript  being developed under the name Mocha?",
+    answers: [" True", "False"],
+    correctAnswer: "True",
+  },
+  {
+    text: "Was Javascript  born in 1995?",
+    answers: [" True", "False"],
+    correctAnswer: "True",
+  },
+];
 
 //Need an eventListener for the start button
-// using the (e) for event
-startButton.addEventListener("click", function(e){
-//     timer starts 
-
-// call timer
-// and
-// call displayQuestion
-
-startTimer()
-displayQuestion()
+startButton.addEventListener("click", function (e) {
+  //call timer and display fist question
+startButton.style.visibility="hidden"
+startHeader.style.display="none"
+questionContainer.style.display="block"
+  startTimer();
+  displayQuestion();
 });
 
-function startTimer(){
-    setInterval(function() {
-        time--;
-        clock.textContent = time;
-        
-    }, 1000);
+function startTimer() {
+  timer = setInterval(function () {
+    time--;
+    clock.textContent = time;
+if(time<=0)
+return;
+alert("You are out of time. Game Over!")
+
+  }, 1000);
 }
 
-function displayQuestion(){
-    // hide the text and start buton
-    startButton.style.visibility = "hidden"
-    // display question 1
-    // you can nest another function in here
-    // if answerButton is clicked
-    // then call nextQuestion()
+function displayQuestion() {
+  var question = questions[questionIndex];
 
+  questionText.textContent = question.text;
 
-    nextQuestion()
+  //render the answers, for each button, add an id to it
+  // add an id here, of index[i]
+  answers.innerHTML = "";
+  question.answers.forEach(function (item) {
+    var answerBtn = document.createElement("button");
+    answerBtn.textContent = item;
+    answers.append(answerBtn);
+  });
 }
 
-function nextQuestion(){
+// you can nest another function in here
+answers.addEventListener("click", function (e) {
+  //call next question
 
-}
-// need to stop the time once it reaches 0
-//     I am presented with a question
-// answer a question
-//     presented with another question
-// if question incorrect
-//     time subtracted
-// if no more questions or the timer reaches 0
-//     game over
-//         ask for user initials
-        // save initial and quiz score
+  if (!e.target.matches("button")) return;
+  var val = e.target.textContent;
+  questionIndex++;
+
+  if (questionIndex === questions.length) {
+  } else {
+    displayQuestion();
+  }
+});
+
+// if answerButton is clicked
+//     // then call nextQuestion()
+//     nextQuestion()
+
+// answers.append(answerBtn1)
+//answers.append(answerBtn2)

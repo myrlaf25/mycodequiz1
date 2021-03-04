@@ -16,8 +16,22 @@ h1 {
 }
 #timer {
     display: flex;
-    align-items:baseline;
+    align-items:center;
     font-size:x-large;
     font-weight: bold;
 }
-
+#questionContainer {
+    width: 800px;
+    margin: 0 auto;
+    background-color: rgb(249, 252, 252);
+    border-radius: 25px;
+    border-style: dashed;
+    padding: 10px;
+}
+#questionText {
+    text-align: center;
+}
+#submit {
+    align-items: center;
+    
+}
