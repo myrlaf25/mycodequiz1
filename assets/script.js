@@ -5,11 +5,17 @@ var clock = document.querySelector("#timer");
 var startHeader = document.querySelector("#startPrompt");
 var answer = document.querySelector("#answers");
 var score=document.querySelector("#finalScore")
+var username=document.getElementById("#username")
+var save=document.getElementById("#saveInfo")
 var time = 30;
 var questionIndex = 0;
 
+var score= 0;
+
+
 
 questionContainer.style.display = "none";
+// nameBox.style.display="none"
 
 var questions = [
   {
@@ -49,7 +55,7 @@ function startTimer() {
     time--;
     clock.textContent = time;
 if(!time){
-    alert("You are out of time. Game Over!")
+    alert("You are out of time!")
     clearInterval(timer);  
 }
 
@@ -65,6 +71,7 @@ function displayQuestion() {
   //render the answers, for each button, add an id to it
   // add an id here, of index[i]
   answers.innerHTML = "";
+  
   question.answers.forEach(function (item) {
     var answerBtn = document.createElement("button");
     answerBtn.textContent = item;
@@ -75,30 +82,50 @@ function displayQuestion() {
 
 // you can nest another function in here
 answers.addEventListener("click", function (e) {
-  //call next question
-
+  
   if (!e.target.matches("button")) return;
   var val = e.target.textContent;
-  questionIndex++;
+  
 
   if (questionIndex === questions.length) {
   } else {
-    displayQuestion();
+
+    
+questionIndex++;
+
+if(questionIndex === questions.length){
+}else
+displayQuestion();
+
   }
+ 
 });
+// this.textContent
  function buttonWasClicked (){ 
      console.log(this.textContent);
-     
+
+
  }
-// this.textContent
+
+function stop(interval){
+    clearInterval(interval);
+    if(time <=0)
+    userNameBox();
+
+}
+
+
+function saveUserNameScore(){
+var save = {
+    username: username.value,
+    score: score.value
+};
+localStorage.setItem("saveUserNameScore"), (JSON.stringify(saveUserNameScore))
+};
 //function to test if right answer selected
+
+
 //call function for every single answer buttons
 //end game function
 //function for score
 //enter name and save to localStorage
-
-function endQuiz() {
-    
-   answers.innerHTML = "";
-}
-
