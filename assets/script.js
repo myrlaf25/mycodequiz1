@@ -5,7 +5,7 @@ var clock = document.querySelector("#timer");
 var startHeader = document.querySelector("#startPrompt");
 var answer = document.querySelector("#answers");
 var score=document.querySelector("#finalScore")
-var time = 200;
+var time = 30;
 var questionIndex = 0;
 
 
@@ -48,9 +48,11 @@ function startTimer() {
   timer = setInterval(function () {
     time--;
     clock.textContent = time;
-if(time<=0)
-return;
-alert("You are out of time. Game Over!")
+if(!time){
+    alert("You are out of time. Game Over!")
+    clearInterval(timer);  
+}
+
 
   }, 1000);
 }
@@ -66,6 +68,7 @@ function displayQuestion() {
   question.answers.forEach(function (item) {
     var answerBtn = document.createElement("button");
     answerBtn.textContent = item;
+    answerBtn.onclick= buttonWasClicked
     answers.append(answerBtn);
   });
 }
@@ -83,10 +86,19 @@ answers.addEventListener("click", function (e) {
     displayQuestion();
   }
 });
+ function buttonWasClicked (){ 
+     console.log(this.textContent);
+     
+ }
+// this.textContent
+//function to test if right answer selected
+//call function for every single answer buttons
+//end game function
+//function for score
+//enter name and save to localStorage
 
-// if answerButton is clicked
-//     // then call nextQuestion()
-//     nextQuestion()
+function endQuiz() {
+    
+   answers.innerHTML = "";
+}
 
-// answers.append(answerBtn1)
-//answers.append(answerBtn2)
