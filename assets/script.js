@@ -5,8 +5,8 @@ var clock = document.querySelector("#timer");
 var startHeader = document.querySelector("#startPrompt");
 var answer = document.querySelector("#answers");
 var score=document.querySelector("#finalScore")
-var username=document.getElementById("#username")
-var save=document.getElementById("#saveInfo")
+
+
 var time = 30;
 var questionIndex = 0;
 
@@ -114,14 +114,23 @@ function stop(interval){
 
 }
 
+var nameBox=document.querySelector("#nameBox")
+var userInput=document.querySelector("#user-input")
 
-function saveUserNameScore(){
-var save = {
-    username: username.value,
-    score: score.value
-};
-localStorage.setItem("saveUserNameScore"), (JSON.stringify(saveUserNameScore))
-};
+//asking browser to go to localStorage and retrieve the data label as username
+var username=localStorage.getItem("username")
+
+
+if(username){
+    user.textContent=username;
+}
+nameBox.addEventListener("submit", function(e){
+    e.preventDefault();
+    var val = userInput.value;
+    user.textContent=val;
+    localStorage.setItem("username", val);
+})
+
 //function to test if right answer selected
 
 
