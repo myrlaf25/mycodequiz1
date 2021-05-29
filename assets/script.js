@@ -5,7 +5,8 @@ var clock = document.querySelector("#timer");
 var startHeader = document.querySelector("#startPrompt");
 var answer = document.querySelector("#answers");
 var score=document.querySelector("#finalScore")
-
+var nameBox= document.querySelector("#nameBox");
+var userInput=document.querySelector("#user-input")
 
 var time = 30;
 var questionIndex = 0;
@@ -15,7 +16,7 @@ var score= 0;
 
 
 questionContainer.style.display = "none";
-// nameBox.style.display="none"
+nameBox.style.display="none"
 
 var questions = [
   {
@@ -64,18 +65,18 @@ if(!time){
 }
 
 function displayQuestion() {
-  var question = questions[questionIndex];
+  
 
-  questionText.textContent = question.text;
+  questionText.textContent = questions[questionIndex].text;
 
   //render the answers, for each button, add an id to it
   // add an id here, of index[i]
   answers.innerHTML = "";
   
-  question.answers.forEach(function (item) {
+  questions[questionIndex].answers.forEach(function (item) {
     var answerBtn = document.createElement("button");
     answerBtn.textContent = item;
-    answerBtn.onclick= buttonWasClicked
+    // answerBtn.onclick= buttonWasClicked
     answers.append(answerBtn);
   });
 }
@@ -87,21 +88,48 @@ answers.addEventListener("click", function (e) {
   var val = e.target.textContent;
   
 
-  if (questionIndex === questions.length) {
+  if (val === questions[questionIndex].correctAnswer) {
+    score ++;
+    score.textContent=score;
   } else {
-
+    
+    time.textContent=time;
+  }
     
 questionIndex++;
-
+  
 if(questionIndex === questions.length){
-}else
+  saveScore();
+  questionContainer.style.display = "none";
+  nameBox.style.display="block";
+  score.style.display="block";
+}else{
 displayQuestion();
 
-  }
+}
+})
  
-});
+
+ function saveScore(){
+   var scoreArray=[];
+   var username=localStorage.getItem("username")
+
+   if(username){
+       user.textContent=username;
+   }
+   nameBox.addEventListener("submit", function(e){
+       e.preventDefault();
+       var val = userInput.value;
+       user.textContent=val;
+       localStorage.setItem("username", val);
+   })
+   localStorage.setItem("Score", JSON.stringify(score));
+ }
+
+
 // this.textContent
  function buttonWasClicked (){ 
+
      console.log(this.textContent);
 
 
@@ -114,22 +142,11 @@ function stop(interval){
 
 }
 
-var nameBox=document.querySelector("#nameBox")
-var userInput=document.querySelector("#user-input")
+
 
 //asking browser to go to localStorage and retrieve the data label as username
-var username=localStorage.getItem("username")
 
 
-if(username){
-    user.textContent=username;
-}
-nameBox.addEventListener("submit", function(e){
-    e.preventDefault();
-    var val = userInput.value;
-    user.textContent=val;
-    localStorage.setItem("username", val);
-})
 
 //function to test if right answer selected
 
